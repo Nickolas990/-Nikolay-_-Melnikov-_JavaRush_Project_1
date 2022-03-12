@@ -5,7 +5,7 @@ import cryptography.dictionaries.CircleOfLetters;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 
 public class Crypt {
     private static int key = 0;
@@ -17,10 +17,12 @@ public class Crypt {
             ByteBuffer buffer = ByteBuffer.allocate(2048);
             int read = channel.read(buffer);
             buffer.flip();
+            StringBuilder builder = new StringBuilder();
             while (buffer.hasRemaining()) {
-
+                builder.append(crypt((char)buffer.get()));
             }
-
+            System.out.println(builder);
+            cryptoChannel.write(buffer);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -28,15 +30,15 @@ public class Crypt {
             e.printStackTrace();
         }
     }
+    //Некорректно приходят данные в метод. letter должен быть кириллическим символом, однако не могу понять, что передается в метод в итоге
     private static char crypt (char letter) {
         char cryptoLetter = ' ';
         for (int i = 0; i < alphabet.length; i++) {
             if (letter == alphabet[i]) {
-                if ((i + key) < alphabet.length) letter = alphabet[i + key];
-                else letter = alphabet[i + key - alphabet.length];
+                if ((i + key) < alphabet.length) cryptoLetter = alphabet[i + key];
+                else cryptoLetter = alphabet[i + key - alphabet.length];
             }
         }
-
         return cryptoLetter;
     }
 }
