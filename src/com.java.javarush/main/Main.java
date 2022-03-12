@@ -1,6 +1,6 @@
 package main;
 
-import dialog.Dialog;
+import consoleui.Dialog;
 
 public class Main {
     public static void main(String[] args) {
