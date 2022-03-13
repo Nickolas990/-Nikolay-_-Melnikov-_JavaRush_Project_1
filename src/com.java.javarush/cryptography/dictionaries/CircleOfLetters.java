@@ -7,8 +7,7 @@ public class CircleOfLetters {
 
 
     public static char[] init (){
-        char[] circle = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,””:-!? ".toCharArray();
+        char[] circle = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ".toCharArray();
         return circle;
     }
-
 }

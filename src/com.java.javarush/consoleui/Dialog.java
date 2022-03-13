@@ -17,8 +17,17 @@ public class Dialog {
                 System.out.println("Please, enter the path of crypto file");
                 Path resultFile = Path.of(reader.readLine());
                 cryptography.Crypt.start(file, key, resultFile);
+                System.out.println("Crypted");
             }
-                else if(answer.equalsIgnoreCase("encrypt")) cryptography.EnCrypt.start();
+                else if(answer.equalsIgnoreCase("encrypt")) {
+                System.out.println("Enter path of file with crypted file");
+                    Path file = Path.of(reader.readLine());
+                System.out.println("Enter path of file for encrypted text");
+                    Path resultFile = Path.of(reader.readLine());
+                System.out.println("Enter the key for encrypt");
+                    int key = Integer.parseInt(reader.readLine());
+                    cryptography.EnCrypt.start(file, key, resultFile);
+            }
                     else System.out.println("Incorrect command. Rerun CryptoScan and try again.");
         }catch (IOException e) {
             e.printStackTrace(System.out);

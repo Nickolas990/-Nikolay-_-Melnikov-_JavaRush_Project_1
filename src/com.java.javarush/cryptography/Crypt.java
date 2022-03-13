@@ -3,11 +3,8 @@ package cryptography;
 import cryptography.dictionaries.CircleOfLetters;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 public class Crypt {
     private static int key = 0;
@@ -20,8 +17,11 @@ public class Crypt {
             while (reader.read(cBuff) != -1) {
                 cBuff.flip();
                 while(cBuff.hasRemaining()) {
-                    System.out.print(crypt(cBuff.get()));
+                    char c = cBuff.get();
+                    System.out.print(crypt(c));
+                    writer.write(crypt(c));
                 }
+                System.out.println();
                 cBuff.clear();
             }
 
@@ -33,8 +33,10 @@ public class Crypt {
     }
     private static char crypt (char letter) {
         char cryptoLetter = letter;
+        String str = String.valueOf(letter);
         for (int i = 0; i < alphabet.length; i++) {
-            if (letter == alphabet[i]) {
+            String alphabetic = String.valueOf(alphabet[i]);
+            if (str.equalsIgnoreCase(alphabetic)) {
                 if ((i + key) < alphabet.length){
                     cryptoLetter = alphabet[i + key];
                     break;
