@@ -3,11 +3,26 @@ package cryptography.dictionaries;
 
 
 public class CircleOfLetters {
-    private CircleOfLetters() {}
+    private final char[] alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ".toCharArray();
+    private int normalKey;
 
+    public char[] getAlphabet() {
+        return alphabet;
+    }
 
-    public static char[] init (){
-        char[] circle = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ".toCharArray();
-        return circle;
+    public int getNormalKey() {
+        return normalKey;
+    }
+
+    public void setNormalKey(int userKey) {
+        this.normalKey = normalizeKey(userKey);
+    }
+
+    private int normalizeKey(int userKey) {
+        int key;
+        if (userKey > alphabet.length) {
+            key = userKey - userKey/alphabet.length*alphabet.length;
+        } else key = userKey;
+        return key;
     }
 }
