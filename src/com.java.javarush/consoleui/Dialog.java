@@ -19,7 +19,7 @@ public class Dialog {
                 int key = Integer.parseInt(reader.readLine());
                 System.out.println("Please, enter the path of crypto file");
                 Path resultFile = Path.of(reader.readLine());
-                cryptography.Crypt.start(file, key, resultFile);
+                cryptography.Cryption.start(file, key, resultFile);
                 System.out.println("Crypted");
             } else if (answer.equalsIgnoreCase("encrypt")) {
                 System.out.println("Do you know crypt key?");
@@ -28,7 +28,7 @@ public class Dialog {
                     Path file = Path.of(reader.readLine());
                     System.out.println("Enter path of file for encrypted text");
                     Path resultFile = Path.of(reader.readLine());
-                    cryptography.EnCrypt.usingBruteForce(file, resultFile);
+                    cryptography.EnCryption.usingBruteForce(file, resultFile);
 
                 } else if (reader.readLine().equalsIgnoreCase("Yes")) {
                     System.out.println("Enter path of file with crypted file");
@@ -37,7 +37,7 @@ public class Dialog {
                     Path resultFile = Path.of(reader.readLine());
                     System.out.println("Enter the key for encrypt");
                     int key = Integer.parseInt(reader.readLine());
-                    cryptography.EnCrypt.startStandartEncryption(file, key, resultFile);
+                    cryptography.EnCryption.startStandartEncryption(file, key, resultFile);
                 }
             } else System.out.println("Incorrect command. Rerun CryptoScan and try again.");
         } catch (IOException e) {

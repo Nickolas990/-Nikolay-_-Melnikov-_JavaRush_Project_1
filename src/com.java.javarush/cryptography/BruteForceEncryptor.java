@@ -5,12 +5,10 @@ import cryptography.dictionaries.CircleOfLetters;
 import java.io.*;
 import java.nio.file.Path;
 
-public class BruteForceEncryptor extends EnCrypt {
-    private char[] alphabet;
+public class BruteForceEncryptor extends EnCryptor {
     private Path crypted;
 
     public BruteForceEncryptor(Path crypted) {
-        this.alphabet = new CircleOfLetters().getAlphabet();
         this.crypted = crypted;
     }
 

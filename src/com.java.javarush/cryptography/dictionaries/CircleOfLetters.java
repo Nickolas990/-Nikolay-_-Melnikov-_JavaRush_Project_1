@@ -21,7 +21,7 @@ public class CircleOfLetters {
     private int normalizeKey(int userKey) {
         int key;
         if (userKey > alphabet.length) {
-            key = userKey - userKey/alphabet.length*alphabet.length;
+            key = Math.abs(userKey % alphabet.length);
         } else key = userKey;
         return key;
     }
