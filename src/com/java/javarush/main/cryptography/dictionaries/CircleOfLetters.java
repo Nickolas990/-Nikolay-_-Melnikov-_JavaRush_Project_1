@@ -1,4 +1,4 @@
-package main.cryptography.dictionaries;
+package com.java.javarush.main.cryptography.dictionaries;
 
 
 

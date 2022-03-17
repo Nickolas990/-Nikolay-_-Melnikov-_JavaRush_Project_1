@@ -1,6 +1,6 @@
-package main;
+package com.java.javarush.main;
 
-import main.consoleui.Dialog;
+import com.java.javarush.main.consoleui.Dialog;
 
 public class Main {
     public static void main(String[] args) {

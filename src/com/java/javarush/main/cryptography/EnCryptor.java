@@ -1,6 +1,6 @@
-package main.cryptography;
+package com.java.javarush.main.cryptography;
 
-import main.cryptography.dictionaries.CircleOfLetters;
+import com.java.javarush.main.cryptography.dictionaries.CircleOfLetters;
 
 import java.nio.file.Path;
 
