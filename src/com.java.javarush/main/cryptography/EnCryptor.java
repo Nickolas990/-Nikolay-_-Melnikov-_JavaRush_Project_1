@@ -1,6 +1,6 @@
-package cryptography;
+package main.cryptography;
 
-import cryptography.dictionaries.CircleOfLetters;
+import main.cryptography.dictionaries.CircleOfLetters;
 
 import java.nio.file.Path;
 
@@ -12,17 +12,6 @@ public class EnCryptor {
     Path output;
 
     EnCryptor(){}
-
-    public EnCryptor(Path crypted) {
-        alphabet = lettersForEncryption.getAlphabet();
-        this.input = Path.of (String.valueOf(crypted));
-    }
-
-    public EnCryptor(Path crypted, Path encrypted) {
-        alphabet = lettersForEncryption.getAlphabet();
-        this.input = Path.of (String.valueOf(crypted));
-        this.output = Path.of (String.valueOf(encrypted));
-    }
 
     public EnCryptor(int key, Path crypted, Path encrypted) {
         lettersForEncryption.setNormalKey(key);

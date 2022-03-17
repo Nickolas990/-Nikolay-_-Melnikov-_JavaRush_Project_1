@@ -1,6 +1,4 @@
-package consoleui;
-
-import cryptography.BruteForceEncryptor;
+package main.consoleui;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -19,7 +17,7 @@ public class Dialog {
                 int key = Integer.parseInt(reader.readLine());
                 System.out.println("Please, enter the path of crypto file");
                 Path resultFile = Path.of(reader.readLine());
-                cryptography.Cryption.start(file, key, resultFile);
+                main.cryptography.Cryption.start(file, key, resultFile);
                 System.out.println("Crypted");
             } else if (answer.equalsIgnoreCase("encrypt")) {
                 System.out.println("Do you know crypt key?");
@@ -28,7 +26,7 @@ public class Dialog {
                     Path file = Path.of(reader.readLine());
                     System.out.println("Enter path of file for encrypted text");
                     Path resultFile = Path.of(reader.readLine());
-                    cryptography.EnCryption.usingBruteForce(file, resultFile);
+                    main.cryptography.EnCryption.usingBruteForce(file, resultFile);
 
                 } else if (reader.readLine().equalsIgnoreCase("Yes")) {
                     System.out.println("Enter path of file with crypted file");
@@ -37,7 +35,7 @@ public class Dialog {
                     Path resultFile = Path.of(reader.readLine());
                     System.out.println("Enter the key for encrypt");
                     int key = Integer.parseInt(reader.readLine());
-                    cryptography.EnCryption.startStandartEncryption(file, key, resultFile);
+                    main.cryptography.EnCryption.startStandartEncryption(file, key, resultFile);
                 }
             } else System.out.println("Incorrect command. Rerun CryptoScan and try again.");
         } catch (IOException e) {

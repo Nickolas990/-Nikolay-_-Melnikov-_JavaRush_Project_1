@@ -1,4 +1,4 @@
-package cryptography.dictionaries;
+package main.cryptography.dictionaries;
 
 
 

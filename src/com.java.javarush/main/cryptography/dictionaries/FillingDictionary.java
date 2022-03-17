@@ -1,11 +1,11 @@
-package cryptography.dictionaries;
+package main.cryptography.dictionaries;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
 
 public class FillingDictionary {
-    public static final Path dictionary = Path.of("src/com.java.javarush/cryptography/dictionaries/dictionaryForEnrypt.txt");
+    public static final Path dictionary = Path.of("src/com.java.javarush/main.cryptography/dictionaries/dictionaryForEnrypt.txt");
 
     public static void filling(Path source) {
         try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(source)));
