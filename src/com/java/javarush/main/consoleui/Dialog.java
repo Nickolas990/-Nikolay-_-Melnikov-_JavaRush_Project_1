@@ -8,6 +8,7 @@ import java.nio.file.Path;
 
 public class Dialog {
     private static final String GREETINGS = "Hello please choose option, that you need to use.";
+    private static final String ASKING_CRYPTOFILE = "Enter path of file with crypted file.";
 
     public static void start() {
         System.out.println(GREETINGS);
@@ -25,7 +26,7 @@ public class Dialog {
             } else if (answer.equalsIgnoreCase("encrypt")) {
                 System.out.println("Do you know crypt key?");
                 if (reader.readLine().equalsIgnoreCase("no")) {
-                    System.out.println("Enter path of file with crypted file");
+                    System.out.println(ASKING_CRYPTOFILE);
                     Path file = Path.of(reader.readLine());
                     System.out.println("Enter path of file for encrypted text");
                     Path resultFile = Path.of(reader.readLine());

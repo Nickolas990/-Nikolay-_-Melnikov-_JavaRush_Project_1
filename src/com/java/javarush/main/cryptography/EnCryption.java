@@ -27,6 +27,10 @@ public class EnCryption {
         }
     }
 
+    public static void usingStatisticEncryption(Path crypted, Path encrypted) {
+
+    }
+
     public static void usingBruteForce(Path crypted, Path encrypted) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             BruteForceEncryptor bruteForcer = new BruteForceEncryptor(crypted);

@@ -13,7 +13,7 @@ public class FillingDictionary {
             Set<String> words = new HashSet<>();
             while (reader.ready()) {
                 String input = reader.readLine();
-                Collections.addAll(words, input.split("[ ,.!?\"+Â«Â»]"));
+                Collections.addAll(words, input.split("[ ,.!?\"+«»]"));
             }
 //            for(String word : words) {
 //                System.out.print(word + " ");
