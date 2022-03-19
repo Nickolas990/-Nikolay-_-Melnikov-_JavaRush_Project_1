@@ -30,7 +30,10 @@ public class Dialog {
                     Path file = Path.of(reader.readLine());
                     System.out.println("Enter path of file for encrypted text");
                     Path resultFile = Path.of(reader.readLine());
-                    EnCryption.usingBruteForce(file, resultFile);
+                   // EnCryption.usingBruteForce(file, resultFile);
+                    System.out.println("Enter exampleFile");
+                    Path example = Path.of(reader.readLine());
+                        EnCryption.usingStatisticEncryption(example, file, resultFile);
 
                 } else if (reader.readLine().equalsIgnoreCase("Yes")) {
                     System.out.println("Enter path of file with crypted file");

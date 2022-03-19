@@ -15,13 +15,17 @@ public class CircleOfLetters {
     }
 
     public void setNormalKey(int userKey) {
-        this.normalKey = normalizeKey(userKey);
+        if (userKey != 0) {
+            this.normalKey = normalizeKey(userKey);
+        } else this.normalKey = 0;
     }
 
     private int normalizeKey(int userKey) {
         int key;
-        if (userKey > alphabet.length) {
+        if (Math.abs(userKey) > alphabet.length) {
             key = userKey % alphabet.length;
+        } else if (userKey < 0 && Math.abs(userKey) < alphabet.length) {
+            key = alphabet.length + userKey;
         } else key = userKey;
         return key;
     }

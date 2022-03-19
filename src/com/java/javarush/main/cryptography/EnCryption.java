@@ -27,8 +27,10 @@ public class EnCryption {
         }
     }
 
-    public static void usingStatisticEncryption(Path crypted, Path encrypted) {
-
+    public static void usingStatisticEncryption(Path example, Path crypted, Path encrypted) {
+        StatisticEncryptor statsEcryptor = new StatisticEncryptor(example, crypted, encrypted);
+        statsEcryptor.printStats();
+        statsEcryptor.breaking();
     }
 
     public static void usingBruteForce(Path crypted, Path encrypted) {

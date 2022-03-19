@@ -5,35 +5,56 @@ import java.nio.*;
 import java.nio.file.Path;
 import java.util.*;
 
+import static com.java.javarush.main.cryptography.EnCryption.startStandartEncryption;
+
 public class StatisticEncryptor extends EnCryptor {
-    private Path crypted;
     Map<Character, Double> stats;
     Map<Character, Double> cryptedStats;
 
-    public StatisticEncryptor(Path example, Path crypted) {
-        this.crypted = crypted;
+    public StatisticEncryptor(Path example, Path crypted, Path encrypted) {
+        input = crypted;
+        output = encrypted;
         this.stats = creatingStats(example);
         this.cryptedStats = creatingStats(crypted);
     }
 
     public void breaking() {
+        char oftenLetter = ' ';
+        char oftenCryptoletter = ' ';
+        int index = 0;
+        int cryptedIndex = 0;
+        int max = Integer.MIN_VALUE;
+        int cryptedMax = Integer.MIN_VALUE;
+        for (Map.Entry<Character, Double> entry : stats.entrySet()) {
+            if (entry.getValue() > max) {
+                oftenLetter = entry.getKey();
+                max =(int) Math.round(entry.getValue());
+            }
+        }
+        for (int i = 0; i < alphabet.length; i++) {
+            if (oftenLetter == alphabet[i]) index = i;
+        }
         for (Map.Entry<Character, Double> entry : cryptedStats.entrySet()) {
-            int index = 0;
-            int cryptedIndex = 0;
-            for (int i = 0; i < alphabet.length; i++) {
-                if (entry.getKey() == alphabet[i]) index = i;
+            if (entry.getValue() > cryptedMax) {
+                oftenCryptoletter = entry.getKey();
+                cryptedMax = (int) Math.round(entry.getValue());
             }
-            for (Map.Entry<Character, Double> entry2 : stats.entrySet()) {
-                Double value = entry.getValue();
-                if (value.equals(entry2.getValue())) {
-                    for (int i = 0; i < alphabet.length; i++) {
-                        if (entry.getKey() == alphabet[i]) {
-                            cryptedIndex = i;
-                            key = cryptedIndex - index;
-                        }
-                    }
-                }
-            }
+        }
+        for (int i = 0; i < alphabet.length; i++) {
+            if (oftenCryptoletter == alphabet[i]) cryptedIndex = i;
+        }
+         int userKey = cryptedIndex - index;
+        startStandartEncryption(input, userKey, output);
+    }
+
+    public void printStats() {
+        for (Map.Entry<Character, Double> entry : cryptedStats.entrySet()) {
+            System.out.println(entry.getKey() + " : " + Math.round(entry.getValue()));
+        }
+        System.out.println();
+
+        for (Map.Entry<Character, Double> entry : stats.entrySet()) {
+            System.out.println(entry.getKey() + " : " + Math.round(entry.getValue()));
         }
     }
 
@@ -45,19 +66,21 @@ public class StatisticEncryptor extends EnCryptor {
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(example)))) {
             CharBuffer cBuff = CharBuffer.allocate(1024);
-            while (reader.read(cBuff) > 0) {
+            while (reader.read() > 0) {
+                cBuff.put((reader.readLine().toLowerCase(Locale.ROOT)));
                 cBuff.flip();
                 while (cBuff.hasRemaining()) {
                     Character c = cBuff.get();
-                    totalLetters++;
-                    map.put(c, map.get(c) + 1);
-                    cBuff.clear();
+                    if (map.containsKey(c)) {
+                        totalLetters++;
+                        map.put(c, map.get(c) + 1);
+                    }
                 }
+                cBuff.clear();
             }
             if (totalLetters > 0) {
                 for (Map.Entry<Character, Double> entry : map.entrySet()) {
                     map.put(entry.getKey(), entry.getValue() / totalLetters * 100);
-                    System.out.println(entry.getKey() + " " + entry.getValue());
                 }
             } else System.out.println("Stats table is empty");
 
@@ -69,5 +92,4 @@ public class StatisticEncryptor extends EnCryptor {
         }
         return map;
     }
-
 }
