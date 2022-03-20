@@ -5,8 +5,6 @@ import java.nio.*;
 import java.nio.file.Path;
 import java.util.*;
 
-import static com.java.javarush.main.cryptography.EnCryption.startStandartEncryption;
-
 public class StatisticEncryptor extends EnCryptor {
     Map<Character, Double> stats;
     Map<Character, Double> cryptedStats;
@@ -18,7 +16,7 @@ public class StatisticEncryptor extends EnCryptor {
         this.cryptedStats = creatingStats(crypted);
     }
 
-    public void breaking() {
+    public int breaking() {
         char oftenLetter = ' ';
         char oftenCryptoletter = ' ';
         int index = 0;
@@ -44,7 +42,7 @@ public class StatisticEncryptor extends EnCryptor {
             if (oftenCryptoletter == alphabet[i]) cryptedIndex = i;
         }
          int userKey = cryptedIndex - index;
-        startStandartEncryption(input, userKey, output);
+        return userKey;
     }
 
     public void printStats() {

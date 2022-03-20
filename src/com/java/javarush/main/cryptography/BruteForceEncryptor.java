@@ -20,6 +20,7 @@ public class BruteForceEncryptor extends EnCryptor {
                     sb.append(enCrypt(c, i));
                 }
                 System.out.println(i + " : " + sb);
+                System.out.println();
             }
         } catch (IOException e) {
             e.printStackTrace();
