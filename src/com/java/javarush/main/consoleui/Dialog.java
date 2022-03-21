@@ -74,11 +74,9 @@ public class Dialog {
                     System.out.println("For BruteForce enter 1, for StatisticEncrypting enter 2");
                     System.out.println("NOTICE: For StatisticEncrypting you will need example text from author of crypted text");
                     String encryptMethod = reader.readLine();
-                    if (!(encryptMethod.equals("1") && encryptMethod.equals("2"))) {
-                        System.out.println(ERROR);
-                        return;
-                    }
 
+
+                    if (encryptMethod.equalsIgnoreCase("1")) {
                     System.out.println(ASKING_CRYPTOFILE);
                     String str = reader.readLine();
                     Path file;
@@ -96,10 +94,26 @@ public class Dialog {
                     } else  {
                         resultFile = Path.of(str);
                     }
-
-                    if (encryptMethod.equalsIgnoreCase("1")) {
                         EnCryption.usingBruteForce(file, resultFile);
+
                     } else if (encryptMethod.equals("2")) {
+                        System.out.println(ASKING_CRYPTOFILE);
+                        String str = reader.readLine();
+                        Path file;
+                        if (check(str)) {
+                            file = Path.of(reader.readLine());
+                        } else  {
+                            file = Path.of(str);
+                        }
+
+                        System.out.println(ASKING_ENCRYPTEDFILE);
+                        str = reader.readLine();
+                        Path resultFile;
+                        if (check(str)) {
+                            resultFile = Path.of(reader.readLine());
+                        } else  {
+                            resultFile = Path.of(str);
+                        }
                         System.out.println("Enter path to exampleFile");
                         str = reader.readLine();
                         Path example;
