@@ -76,7 +76,7 @@ public class Dialog {
                     String encryptMethod = reader.readLine();
 
 
-                    if (encryptMethod.equalsIgnoreCase("1")) {
+                    if ("1".equalsIgnoreCase(encryptMethod)) {
                     System.out.println(ASKING_CRYPTOFILE);
                     String str = reader.readLine();
                     Path file;
@@ -96,7 +96,7 @@ public class Dialog {
                     }
                         EnCryption.usingBruteForce(file, resultFile);
 
-                    } else if (encryptMethod.equals("2")) {
+                    } else if ("2".equals(encryptMethod)) {
                         System.out.println(ASKING_CRYPTOFILE);
                         String str = reader.readLine();
                         Path file;
