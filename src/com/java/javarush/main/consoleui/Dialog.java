@@ -2,6 +2,7 @@ package com.java.javarush.main.consoleui;
 
 import com.java.javarush.main.cryptography.Cryption;
 import com.java.javarush.main.cryptography.EnCryption;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -29,16 +30,17 @@ public class Dialog {
     }
 
 
-
     public static void start() {
         System.out.println(GREETINGS);
         System.out.println("Please, choose one function of menu.");
         System.out.println("Enter 1 for crypting sequence.");
         System.out.println("Enter 2 for encrypting");
+        System.out.println("Type \"Exit\" to exit program");
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String answer = reader.readLine();
 
-            if (answer.equalsIgnoreCase("1")) {
+            if ("1".equalsIgnoreCase(answer)) {
 
                 System.out.println("Please, enter the path of file with text to make cipher");
 
@@ -47,7 +49,7 @@ public class Dialog {
                 Path file;
                 if (check(str)) {
                     file = Path.of(reader.readLine());
-                } else  {
+                } else {
                     file = Path.of(str);
                 }
 
@@ -57,7 +59,7 @@ public class Dialog {
                 Path resultFile;
                 if (check(str)) {
                     resultFile = Path.of(reader.readLine());
-                } else  {
+                } else {
                     resultFile = Path.of(str);
                 }
 
@@ -67,9 +69,10 @@ public class Dialog {
                 Cryption.start(file, key, resultFile);
                 System.out.println("Crypted");
 
-            } else if (answer.equalsIgnoreCase("2")) {
+            } else if ("2".equalsIgnoreCase(answer)) {
                 System.out.println("Do you know crypt key? Y/N");
-                if (reader.readLine().equalsIgnoreCase("N")) {
+
+                if ("N".equalsIgnoreCase(reader.readLine())) {
                     System.out.println("Please, choose method of encrypting");
                     System.out.println("For BruteForce enter 1, for StatisticEncrypting enter 2");
                     System.out.println("NOTICE: For StatisticEncrypting you will need example text from author of crypted text");
@@ -77,32 +80,12 @@ public class Dialog {
 
 
                     if ("1".equalsIgnoreCase(encryptMethod)) {
-                    System.out.println(ASKING_CRYPTOFILE);
-                    String str = reader.readLine();
-                    Path file;
-                    if (check(str)) {
-                        file = Path.of(reader.readLine());
-                    } else  {
-                        file = Path.of(str);
-                    }
-
-                    System.out.println(ASKING_ENCRYPTEDFILE);
-                    str = reader.readLine();
-                    Path resultFile;
-                    if (check(str)) {
-                        resultFile = Path.of(reader.readLine());
-                    } else  {
-                        resultFile = Path.of(str);
-                    }
-                        EnCryption.usingBruteForce(file, resultFile);
-
-                    } else if ("2".equals(encryptMethod)) {
                         System.out.println(ASKING_CRYPTOFILE);
                         String str = reader.readLine();
                         Path file;
                         if (check(str)) {
                             file = Path.of(reader.readLine());
-                        } else  {
+                        } else {
                             file = Path.of(str);
                         }
 
@@ -111,27 +94,49 @@ public class Dialog {
                         Path resultFile;
                         if (check(str)) {
                             resultFile = Path.of(reader.readLine());
-                        } else  {
+                        } else {
                             resultFile = Path.of(str);
                         }
+                        EnCryption.usingBruteForce(file, resultFile);
+
+                    } else if ("2".equals(encryptMethod)) {
+                        System.out.println(ASKING_CRYPTOFILE);
+                        String str = reader.readLine();
+                        Path file;
+                        if (check(str)) {
+                            file = Path.of(reader.readLine());
+                        } else {
+                            file = Path.of(str);
+                        }
+
+                        System.out.println(ASKING_ENCRYPTEDFILE);
+                        str = reader.readLine();
+                        Path resultFile;
+                        if (check(str)) {
+                            resultFile = Path.of(reader.readLine());
+                        } else {
+                            resultFile = Path.of(str);
+                        }
+
                         System.out.println("Enter path to exampleFile");
                         str = reader.readLine();
                         Path example;
                         if (check(str)) {
                             example = Path.of(reader.readLine());
-                        } else  {
+                        } else {
                             example = Path.of(str);
                         }
+
                         EnCryption.usingStatisticEncryption(example, file, resultFile);
                     } else System.out.println(ERROR);
 
-                } else if (reader.readLine().equalsIgnoreCase("Y")) {
+                } else if ("Y".equalsIgnoreCase(reader.readLine())) {
                     System.out.println(ASKING_CRYPTOFILE);
                     String str = reader.readLine();
                     Path file;
                     if (check(str)) {
                         file = Path.of(reader.readLine());
-                    } else  {
+                    } else {
                         file = Path.of(str);
                     }
 
@@ -141,7 +146,7 @@ public class Dialog {
                     Path resultFile;
                     if (check(str)) {
                         resultFile = Path.of(reader.readLine());
-                    } else  {
+                    } else {
                         resultFile = Path.of(str);
                     }
 
@@ -149,6 +154,8 @@ public class Dialog {
                     int key = Integer.parseInt(reader.readLine());
                     EnCryption.startStandartEncryption(file, key, resultFile);
                 }
+            }else if ("exit".equalsIgnoreCase(answer)) {
+                return;
             } else System.out.println(ERROR);
         } catch (IOException e) {
             System.out.println("Incorrect data entered");
