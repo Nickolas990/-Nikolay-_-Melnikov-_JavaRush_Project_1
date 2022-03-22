@@ -77,7 +77,7 @@ public class Dialog {
                     EnCryption.startStandartEncryption(dialog.input, dialog.key, dialog.output);
                 } else if ("N".equalsIgnoreCase(input)) {
                     System.out.printf("Press 1 for BruteForce Encrypting \n" +
-                            "Press 2 for StatisticEncryption");
+                            "Press 2 for StatisticEncryption \n");
                     input = scanner.readLine();
                     if ("1".equals(input)) {
                         EnCryption.usingBruteForce(dialog.input, dialog.output);

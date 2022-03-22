@@ -6,41 +6,40 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class StatisticEncryptor extends EnCryptor {
+    public static final int CAPACITY = 2048;
     Map<Character, Double> stats;
     Map<Character, Double> cryptedStats;
 
     public StatisticEncryptor(Path example, Path crypted, Path encrypted) {
         input = crypted;
         output = encrypted;
-        this.stats = creatingStats(example);
-        this.cryptedStats = creatingStats(crypted);
+        this.stats = creatingMapWithStats(example);
+        this.cryptedStats = creatingMapWithStats(crypted);
     }
 
-    public int breaking() {
-        char oftenLetter = ' ';
-        char oftenCryptoletter = ' ';
+
+    public int getIndexOfMostOftenLetter(Map<Character, Double> target) {
         int index = 0;
-        int cryptedIndex = 0;
+        char oftenLetter = ' ';
         int max = Integer.MIN_VALUE;
-        int cryptedMax = Integer.MIN_VALUE;
-        for (Map.Entry<Character, Double> entry : stats.entrySet()) {
+        for (Map.Entry<Character, Double> entry : target.entrySet()) {
             if (entry.getValue() > max) {
                 oftenLetter = entry.getKey();
                 max =(int) Math.round(entry.getValue());
             }
         }
         for (int i = 0; i < alphabet.length; i++) {
-            if (oftenLetter == alphabet[i]) index = i;
-        }
-        for (Map.Entry<Character, Double> entry : cryptedStats.entrySet()) {
-            if (entry.getValue() > cryptedMax) {
-                oftenCryptoletter = entry.getKey();
-                cryptedMax = (int) Math.round(entry.getValue());
+            if (oftenLetter == alphabet[i]) {
+                index = i;
             }
         }
-        for (int i = 0; i < alphabet.length; i++) {
-            if (oftenCryptoletter == alphabet[i]) cryptedIndex = i;
-        }
+
+        return index;
+    }
+
+    public int breaking() {
+        int index = getIndexOfMostOftenLetter(stats);
+        int cryptedIndex = getIndexOfMostOftenLetter(cryptedStats);
         return cryptedIndex - index;
     }
 
@@ -55,25 +54,25 @@ public class StatisticEncryptor extends EnCryptor {
         }
     }
 
-    private Map creatingStats(Path example) {
+    private Map creatingMapWithStats(Path example) {
         var map = new HashMap<Character, Double>();
         int totalLetters = 0;
         for (char c : alphabet) {
             map.put(c, .0);
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(example)))) {
-            CharBuffer cBuff = CharBuffer.allocate(2048);
+            CharBuffer charBuffer = CharBuffer.allocate(CAPACITY);
             while (reader.read() > 0) {
-                cBuff.put((reader.readLine().toLowerCase()));
-                cBuff.flip();
-                while (cBuff.hasRemaining()) {
-                    Character c = cBuff.get();
+                charBuffer.put((reader.readLine().toLowerCase()));
+                charBuffer.flip();
+                while (charBuffer.hasRemaining()) {
+                    Character c = charBuffer.get();
                     if (map.containsKey(c)) {
                         totalLetters++;
                         map.put(c, map.get(c) + 1);
                     }
                 }
-                cBuff.clear();
+                charBuffer.clear();
             }
             if (totalLetters > 0) {
                 for (Map.Entry<Character, Double> entry : map.entrySet()) {

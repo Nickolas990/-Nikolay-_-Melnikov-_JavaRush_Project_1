@@ -24,10 +24,10 @@ public class EnCryptor {
 
     public char enCrypt(char letter, int key) {
         char cryptoLetter = letter;
-        String str = String.valueOf(letter);
+        String charAsString = String.valueOf(letter);
         for (int i = 0; i < alphabet.length; i++) {
             String alphabetic = String.valueOf(alphabet[i]);
-            if (str.equalsIgnoreCase(alphabetic)) {
+            if (charAsString.equalsIgnoreCase(alphabetic)) {
                 if ((i - key) >= 0) {
                     cryptoLetter = alphabet[i - key];
                 } else cryptoLetter = alphabet[i - key + alphabet.length];
@@ -37,10 +37,10 @@ public class EnCryptor {
     }
     public char crypt (char letter) {
         char cryptoLetter = letter;
-        String str = String.valueOf(letter);
+        String charAsString = String.valueOf(letter);
         for (int i = 0; i < alphabet.length; i++) {
             String alphabetic = String.valueOf(alphabet[i]);
-            if (str.equalsIgnoreCase(alphabetic)) {
+            if (charAsString.equalsIgnoreCase(alphabetic)) {
                 if ((i + key) < alphabet.length){
                     cryptoLetter = alphabet[i + key];
                 } else cryptoLetter = alphabet[i + key - alphabet.length];

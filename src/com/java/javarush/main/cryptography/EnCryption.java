@@ -34,7 +34,8 @@ public class EnCryption {
     }
 
     public static void usingBruteForce(Path crypted, Path encrypted) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             BruteForceEncryptor bruteForcer = new BruteForceEncryptor(crypted);
             System.out.println("Here all possible variants of encrypting. Enter number of fits variant");
             bruteForcer.breaking();
