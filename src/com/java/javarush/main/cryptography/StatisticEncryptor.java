@@ -41,8 +41,7 @@ public class StatisticEncryptor extends EnCryptor {
         for (int i = 0; i < alphabet.length; i++) {
             if (oftenCryptoletter == alphabet[i]) cryptedIndex = i;
         }
-         int userKey = cryptedIndex - index;
-        return userKey;
+        return cryptedIndex - index;
     }
 
     public void printStats() {
@@ -83,9 +82,9 @@ public class StatisticEncryptor extends EnCryptor {
             } else System.out.println("Stats table is empty");
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File not found in this directory");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Incorrect data entered");
 
         }
         return map;

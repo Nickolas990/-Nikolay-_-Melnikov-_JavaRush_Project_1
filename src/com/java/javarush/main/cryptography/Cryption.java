@@ -22,7 +22,7 @@ public class Cryption {
                 cBuff.clear();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Incorrect data entered");
         }
     }
 }

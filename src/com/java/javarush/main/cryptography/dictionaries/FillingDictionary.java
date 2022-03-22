@@ -23,9 +23,9 @@ public class FillingDictionary {
                 writer.flush();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File not found in this directory");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Incorrect data entered");
         }
     }
 }

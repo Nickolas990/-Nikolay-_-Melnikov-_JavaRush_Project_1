@@ -41,7 +41,7 @@ public class EnCryption {
             int userKey = Integer.parseInt(reader.readLine());
             startStandartEncryption(crypted, userKey, encrypted);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Incorrect data entered");
         }
     }
 }

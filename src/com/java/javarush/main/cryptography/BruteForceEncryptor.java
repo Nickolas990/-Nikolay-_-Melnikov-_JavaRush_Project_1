@@ -23,7 +23,7 @@ public class BruteForceEncryptor extends EnCryptor {
                 System.out.println();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Incorrect data entered");
         }
     }
 }

@@ -151,7 +151,7 @@ public class Dialog {
                 }
             } else System.out.println(ERROR);
         } catch (IOException e) {
-            e.printStackTrace(System.out);
+            System.out.println("Incorrect data entered");
         }
     }
 }
