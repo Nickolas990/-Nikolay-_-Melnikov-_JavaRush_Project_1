@@ -13,7 +13,7 @@ public class Cryption {
             CharBuffer cBuff = CharBuffer.allocate(1024);
             while (reader.read(cBuff) != -1) {
                 cBuff.flip();
-                while(cBuff.hasRemaining()) {
+                while (cBuff.hasRemaining()) {
                     char c = cBuff.get();
                     System.out.print(enCryptor.crypt(c));
                     writer.write(enCryptor.crypt(c));

@@ -1,7 +1,6 @@
 package com.java.javarush.main.cryptography.dictionaries;
 
 
-
 public class CircleOfLetters {
     private final char[] alphabet = "אבגדהו¸זחטיךכלםמןנסעףפץצקרשתûü‎‏ÿ.,\":-!? ".toCharArray();
     private int normalKey;
