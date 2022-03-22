@@ -2,7 +2,7 @@ package com.java.javarush.main.cryptography.dictionaries;
 
 
 public class CircleOfLetters {
-    private final char[] alphabet = "àáâãäå¸æçèéêëìíîïğñòóôõö÷øùúûüışÿ.,\":-!? ".toCharArray();
+    private final char[] alphabet = "Ğ°Ğ±Ğ²Ğ³Ğ´ĞµÑ‘Ğ¶Ğ·Ğ¸Ğ¹ĞºĞ»Ğ¼Ğ½Ğ¾Ğ¿Ñ€ÑÑ‚ÑƒÑ„Ñ…Ñ†Ñ‡ÑˆÑ‰ÑŠÑ‹ÑŒÑÑÑ.,\":-!? ".toCharArray();
     private int normalKey;
 
     public char[] getAlphabet() {

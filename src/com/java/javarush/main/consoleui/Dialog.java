@@ -2,7 +2,6 @@ package com.java.javarush.main.consoleui;
 
 import com.java.javarush.main.cryptography.Cryption;
 import com.java.javarush.main.cryptography.EnCryption;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -13,14 +12,14 @@ public class Dialog {
     private static final String ASKING_CRYPTOFILE = "Enter path to file with crypted file.";
     private static final String ASKING_ENCRYPTEDFILE = "Enter path to file for encrypted text.";
     private static final String ERROR = "Incorrect command. Rerun CryptoScan and try again";
-    private static final String WARNING = "This path is not safe for your system. If you sure in your actions, enter this path again.";
+    private static final String WARNING = "This path is not safe for your system. If you sure in your actions, enter this path again. Or enter another.";
 
 
-    public static boolean check(String str) {
-        Path path = Path.of(str);
+    public static boolean check(String filePath) {
+        Path path = Path.of(filePath);
         var set = new HashSet<String>();
-        for (Path p : path) {
-            set.add(p.toString());
+        for (Path directory : path) {
+            set.add(directory.toString());
         }
         if (set.contains("windows") || set.contains("etc") || set.contains("hosts")) {
             System.out.println(WARNING);
