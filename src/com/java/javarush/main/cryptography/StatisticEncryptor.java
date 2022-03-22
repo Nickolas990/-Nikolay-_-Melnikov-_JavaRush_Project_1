@@ -62,9 +62,9 @@ public class StatisticEncryptor extends EnCryptor {
             map.put(c, .0);
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(example)))) {
-            CharBuffer cBuff = CharBuffer.allocate(1024);
+            CharBuffer cBuff = CharBuffer.allocate(2048);
             while (reader.read() > 0) {
-                cBuff.put((reader.readLine().toLowerCase(Locale.ROOT)));
+                cBuff.put((reader.readLine().toLowerCase()));
                 cBuff.flip();
                 while (cBuff.hasRemaining()) {
                     Character c = cBuff.get();
