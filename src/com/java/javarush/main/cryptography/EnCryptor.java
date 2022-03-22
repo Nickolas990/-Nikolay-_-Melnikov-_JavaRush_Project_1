@@ -20,8 +20,6 @@ public class EnCryptor {
         this.output = Path.of (String.valueOf(encrypted));
     }
 
-
-
     public char enCrypt(char letter, int key) {
         char cryptoLetter = letter;
         String charAsString = String.valueOf(letter);
@@ -35,6 +33,7 @@ public class EnCryptor {
         }
         return cryptoLetter;
     }
+
     public char crypt (char letter) {
         char cryptoLetter = letter;
         String charAsString = String.valueOf(letter);
