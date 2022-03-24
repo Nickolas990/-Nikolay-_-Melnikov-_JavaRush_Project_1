@@ -13,7 +13,7 @@
 ````
 из командной строки командой :
 ````
-java -Dfile.encoding=UTF-8 -Dconsole.encoding=UTF-8 -jar -Nikolay-_-Melnikov-_JavaRush_Project_1.jar
+java -Dfile.encoding=UTF-8 -Dconsole.encoding=UTF-8 -jar Nikolay-_-Melnikov-_JavaRush_Project_1.jar
 ````
 ## Crypting
 Для шифрования простого текстового файла, просто укажите путь к файлу, что требуется зашифровать, а затем путь к файлу, 
