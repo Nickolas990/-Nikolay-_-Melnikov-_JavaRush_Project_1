@@ -15,6 +15,7 @@ public class StatisticEncryptor extends EnCryptor {
         output = encrypted;
         this.stats = creatingMapWithStats(example);
         this.cryptedStats = creatingMapWithStats(crypted);
+        key = breaking();
     }
 
 

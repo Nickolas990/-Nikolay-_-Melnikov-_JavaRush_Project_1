@@ -1,5 +1,6 @@
 package com.java.javarush.main;
 
+import com.java.javarush.main.consoleui.AlternateDialog;
 import com.java.javarush.main.consoleui.Dialog;
 
 import java.io.BufferedReader;
@@ -12,19 +13,11 @@ public class Main {
 
 
     public static void main(String[] args) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println(GREETINGS + EXIT);
-            String enterOrExit = reader.readLine();
-
-            while (!"exit".equalsIgnoreCase(enterOrExit)) {
-                Dialog.start();
-                System.out.println();
-                System.out.println(GREETINGS + EXIT);
-                enterOrExit = reader.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Incorrect command");
+        boolean isNeedReturn = true;
+        while (isNeedReturn) {
+            AlternateDialog dialog = new AlternateDialog();
+            dialog.start();
+            isNeedReturn = false;
         }
     }
 }

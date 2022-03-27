@@ -2,7 +2,7 @@ package com.java.javarush.main.consoleui;
 
 import com.java.javarush.main.cryptography.Cryption;
 import com.java.javarush.main.cryptography.EnCryption;
-import com.java.javarush.main.cryptography.FileChecker.FileChecker;
+import com.java.javarush.main.consoleui.FileChecker.FileChecker;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -14,15 +14,16 @@ public class Dialog {
     private static final String ERROR = "Incorrect command. Rerun CryptoScan and try again";
     private static final String EXIT = "Type \"Exit\" to exit program";
 
-    FileChecker fileChecker = new FileChecker();
+    FileChecker fileChecker = FileChecker.getInstance();
 
     Path input;
     Path output;
     int key;
 
     public Dialog() {
-        askingForFiles();
     }
+
+
 
     public void askingForFiles() {
         try {
@@ -46,12 +47,12 @@ public class Dialog {
         } catch (IOException e) {
             System.out.println("Filepath is incorrect");
         }
-
     }
 
 
-    public static void start() {
+    public void start() {
         Dialog dialog = new Dialog();
+        askingForFiles();
         try {
             BufferedReader scanner = new BufferedReader(new InputStreamReader (System.in));
             System.out.printf("Please, choose one function of menu. \n" +

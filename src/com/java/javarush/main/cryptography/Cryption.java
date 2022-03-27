@@ -6,11 +6,13 @@ import java.nio.file.Path;
 
 public class Cryption {
 
+    public static final int CAPACITY = 1024;
+
     public static void start(Path crypted, int userKey, Path encrypted) {
-        EnCryptor enCryptor = new EnCryptor(userKey, crypted, encrypted);
+        EnCryptor enCryptor = new EnCryptor(userKey, crypted, encrypted, true);
         try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(crypted)));
              BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(encrypted)))) {
-            CharBuffer charBuffer = CharBuffer.allocate(1024);
+            CharBuffer charBuffer = CharBuffer.allocate(CAPACITY);
             while (reader.read(charBuffer) != -1) {
                 charBuffer.flip();
                 while (charBuffer.hasRemaining()) {

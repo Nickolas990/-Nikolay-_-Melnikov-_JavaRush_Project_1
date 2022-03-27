@@ -7,7 +7,7 @@ import java.nio.file.Path;
 public class EnCryption {
 
     public static void startStandartEncryption(Path crypted, int userKey, Path encrypted) {
-        EnCryptor enCryptor = new EnCryptor(userKey, crypted, encrypted);
+        EnCryptor enCryptor = new EnCryptor(userKey, crypted, encrypted, false);
         try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(crypted)));
              BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(encrypted)))) {
 
@@ -16,8 +16,8 @@ public class EnCryption {
                 cBuff.flip();
                 while (cBuff.hasRemaining()) {
                     char c = cBuff.get();
-                    System.out.print(enCryptor.enCrypt(c, enCryptor.key));
-                    writer.write(enCryptor.enCrypt(c, enCryptor.key));
+                    System.out.print(enCryptor.enCrypt(c));
+                    writer.write(enCryptor.enCrypt(c));
                 }
                 System.out.println();
                 cBuff.clear();
@@ -36,7 +36,7 @@ public class EnCryption {
     public static void usingBruteForce(Path crypted, Path encrypted) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            BruteForceEncryptor bruteForcer = new BruteForceEncryptor(crypted);
+            BruteForceEncryptor bruteForcer = new BruteForceEncryptor(crypted, encrypted);
             System.out.println("Here all possible variants of encrypting. Enter number of fits variant");
             bruteForcer.breaking();
             int userKey = Integer.parseInt(reader.readLine());
