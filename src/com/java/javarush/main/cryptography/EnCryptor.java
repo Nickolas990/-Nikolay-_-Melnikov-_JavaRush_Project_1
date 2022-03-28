@@ -41,7 +41,7 @@ public class EnCryptor {
                 charBuffer.clear();
             }
         } catch (IOException e) {
-            System.out.println("Incorrect data entered " + e.getMessage());
+            System.out.println("Check this file " + e.getMessage());
         }
     }
 

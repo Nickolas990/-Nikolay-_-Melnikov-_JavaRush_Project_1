@@ -52,7 +52,7 @@ public class AlternateDialog {
             System.out.println(e.getMessage());
 
         } catch (IOException e) {
-            System.out.println("Filepath is incorrect");
+            System.out.println("Filepath is incorrect" + e.getMessage());
         }
     }
 
