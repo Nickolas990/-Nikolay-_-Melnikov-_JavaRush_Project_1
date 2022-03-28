@@ -1,11 +1,6 @@
 package com.java.javarush.main;
 
 import com.java.javarush.main.consoleui.AlternateDialog;
-import com.java.javarush.main.consoleui.Dialog;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
     private static final String GREETINGS = "This is application for crypting and encrypting text. Press \"Enter\" to start or\n";
