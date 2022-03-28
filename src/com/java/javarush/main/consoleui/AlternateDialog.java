@@ -20,9 +20,9 @@ public class AlternateDialog {
     private static final String ASKING_INPUT = "Enter path to file for work with";
     private static final String ASKING_FOR_KEY = "Enter the key for crypting";
     private static final String ASKING_FOR_EXAMPLE = """
-                                                        NOTICE: For StatisticEncrypting you will need example text from author of crypted text
-                                                        Enter the path to example file
-                                                     """;
+               NOTICE: For StatisticEncrypting you will need example text from author of crypted text
+               Enter the path to example file
+            """;
     private static final String ERROR = "Incorrect command. Rerun CryptoScan and try again";
     private static final String EXIT = "Type \"Exit\" to exit program";
 
@@ -34,19 +34,19 @@ public class AlternateDialog {
         }
     }
 
-    public void askingForFiles() {
+    public void askForFiles() {
         try {
             BufferedReader pathsReader = new BufferedReader(new InputStreamReader(System.in));
 
-                System.out.println(ASKING_INPUT);
-                String filename = pathsReader.readLine();
-                checker.validate(filename);
-                input = Path.of(filename);
+            System.out.println(ASKING_INPUT);
+            String filename = pathsReader.readLine();
+            checker.validate(filename);
+            input = Path.of(filename);
 
-                System.out.println(ASKING_OUTPUT);
-                filename = pathsReader.readLine();
-                checker.validate(filename);
-                output = Path.of(filename);
+            System.out.println(ASKING_OUTPUT);
+            filename = pathsReader.readLine();
+            checker.validate(filename);
+            output = Path.of(filename);
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -56,8 +56,8 @@ public class AlternateDialog {
         }
     }
 
-    public void askingForFilesAndKey () {
-        askingForFiles();
+    public void askForFilesAndKey() {
+        askForFiles();
         System.out.println(ASKING_FOR_KEY);
         try {
             BufferedReader pathsReader = new BufferedReader(new InputStreamReader(System.in));
@@ -67,7 +67,7 @@ public class AlternateDialog {
         }
     }
 
-    public void askingForExample() {
+    public void askForExample() {
         System.out.println(ASKING_FOR_EXAMPLE);
         try {
             BufferedReader pathsReader = new BufferedReader(new InputStreamReader(System.in));
@@ -78,7 +78,7 @@ public class AlternateDialog {
         }
     }
 
-    public int makingDecision() {
+    public int makeDecision() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             return Integer.parseInt(reader.readLine());
@@ -90,28 +90,33 @@ public class AlternateDialog {
 
     public void decide(int decision) {
         switch (decision) {
-            case 1:  {
-                askingForFilesAndKey();
+            case 1: {
+                askForFilesAndKey();
                 var cryptor = new EnCryptor(key, input, output, true);
                 cryptor.process();
-            } break;
+            }
+            break;
             case 2: {
-                askingForFilesAndKey();
+                askForFilesAndKey();
                 var enCryptor = new EnCryptor(key, input, output, false);
                 enCryptor.process();
-            } break;
+            }
+            break;
             case 22: {
-                askingForFiles();
+                askForFiles();
                 var bruteForce = new BruteForceEncryptor(input, output);
                 bruteForce.process();
-            } break;
+            }
+            break;
             case 23: {
-                askingForFiles();
-                askingForExample();
+                askForFiles();
+                askForExample();
                 var statisticEncryptor = new StatisticEncryptor(example, input, output);
                 statisticEncryptor.process();
-            } break;
-            case 0: return;
+            }
+            break;
+            case 0:
+                return;
             default:
                 System.out.println("Incorrect command");
         }
@@ -119,6 +124,6 @@ public class AlternateDialog {
 
     public void start() {
         showMenu();
-        decide(makingDecision());
+        decide(makeDecision());
     }
 }

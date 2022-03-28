@@ -20,8 +20,7 @@ public class EnCryptor {
     EnCryptor(){}
 
     public EnCryptor(int key, Path crypted, Path encrypted, boolean isCrypting) {
-        lettersForEncryption.setNormalKey(key);
-        this.key = lettersForEncryption.getNormalKey();
+        this.key = lettersForEncryption.normalizeKey(key);
         this.input = Path.of (String.valueOf(crypted));
         this.output = Path.of (String.valueOf(encrypted));
         this.isCrypting = isCrypting;
