@@ -34,12 +34,8 @@ public class AlternateDialog {
     }
 
     public void start() {
-        try {
-            showMenu();
-            decide(readOption());
-        } catch (IOException e) {
-
-        }
+        showMenu();
+        decide(readOption());
     }
 
     public void showMenu() {
@@ -49,7 +45,10 @@ public class AlternateDialog {
         }
     }
 
-    public void askForFiles() {
+
+
+
+    private void askForFiles() {
         try {
             System.out.println(ASKING_INPUT);
             String filename = checker.validate(in.readLine());
@@ -67,16 +66,15 @@ public class AlternateDialog {
         }
     }
 
-    public void askForFilesAndKey() {
+    private void askForFilesAndKey() {
         askForFiles();
         System.out.println(ASKING_FOR_KEY);
-            key = readInt();
+        key = readInt();
     }
 
-    public void askForExample() {
+    private void askForExample() {
         System.out.println(ASKING_FOR_EXAMPLE);
         try {
-
             var path = checker.validate(in.readLine());
             example = Path.of(path);
         } catch (IllegalArgumentException | IOException e) {
@@ -84,7 +82,7 @@ public class AlternateDialog {
         }
     }
 
-    public void decide(Options option) {
+    private void decide(Options option) {
 
         switch (option) {
             case CRYPT_MODE -> encriptionProcess();
@@ -101,7 +99,7 @@ public class AlternateDialog {
             String input = in.readLine();
             return Integer.parseInt(input);
         } catch (NumberFormatException | IOException e) {
-            throw new InvalidUserInputException ("Input is incorrect", e);
+            throw new InvalidUserInputException("Input is incorrect", e);
         }
     }
 
@@ -114,7 +112,7 @@ public class AlternateDialog {
         }
     }
 
-    private Options readOption() throws IOException {
+    private Options readOption() {
         boolean isNeedRepeat;
         do {
             isNeedRepeat = false;
@@ -130,14 +128,16 @@ public class AlternateDialog {
                     isNeedRepeat = true;
                 }
             }
-        } while(isNeedRepeat);
+        } while (isNeedRepeat);
         return Options.EXIT;
     }
+
     private void encriptionProcess() {
         askForFilesAndKey();
         var cryptor = new EnCryptor(key, input, output, true);
         cryptor.process();
     }
+
     private void decryptProcess() {
         askForFilesAndKey();
         var deCryptor = new EnCryptor(key, input, output, false);
