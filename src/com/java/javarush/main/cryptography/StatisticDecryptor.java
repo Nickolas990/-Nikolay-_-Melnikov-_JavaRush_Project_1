@@ -5,14 +5,14 @@ import java.nio.*;
 import java.nio.file.Path;
 import java.util.*;
 
-public class StatisticEncryptor extends EnCryptor {
+public class StatisticDecryptor extends EnCryptor {
 
     Map<Character, Double> stats;
     Map<Character, Double> cryptedStats;
     private static final int CAPACITY = 2048;
 
 
-    public StatisticEncryptor(Path example, Path crypted, Path encrypted) {
+    public StatisticDecryptor(Path example, Path crypted, Path encrypted) {
         input = crypted;
         output = encrypted;
         this.stats = creatingMapWithStats(example);

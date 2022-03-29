@@ -34,8 +34,8 @@ public class EnCryptor {
                 charBuffer.flip();
                 while (charBuffer.hasRemaining()) {
                     char c = charBuffer.get();
-                    System.out.print(isCrypting ? crypt(c) : enCrypt(c));
-                    writer.write(isCrypting ? crypt(c) : enCrypt(c));
+                    System.out.print(isCrypting ? crypt(c) : DeCrypt(c));
+                    writer.write(isCrypting ? crypt(c) : DeCrypt(c));
                 }
                 System.out.println();
                 charBuffer.clear();
@@ -45,7 +45,7 @@ public class EnCryptor {
         }
     }
 
-    public char enCrypt(char letter) {
+    public char DeCrypt(char letter) {
         char cryptoLetter = letter;
         String charAsString = String.valueOf(letter);
         for (int i = 0; i < alphabet.length; i++) {

@@ -1,9 +1,10 @@
 package com.java.javarush.main.consoleui;
 
 import com.java.javarush.main.consoleui.FileChecker.FileChecker;
-import com.java.javarush.main.cryptography.BruteForceEncryptor;
+import com.java.javarush.main.consoleui.exceptions.InvalidUserInputException;
+import com.java.javarush.main.cryptography.BruteForceDecryptor;
 import com.java.javarush.main.cryptography.EnCryptor;
-import com.java.javarush.main.cryptography.StatisticEncryptor;
+import com.java.javarush.main.cryptography.StatisticDecryptor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,9 +12,11 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 
 public class AlternateDialog {
+    public static final String AGAIN_MESSAGE = "again";
     Path input;
     Path output;
     Path example;
+
     int key;
     FileChecker checker = FileChecker.getInstance();
     private static final String ASKING_OUTPUT = "Enter path to file with result.";
@@ -26,6 +29,20 @@ public class AlternateDialog {
     private static final String ERROR = "Incorrect command. Rerun CryptoScan and try again";
     private static final String EXIT = "Type \"Exit\" to exit program";
 
+    private final BufferedReader in;
+
+    public AlternateDialog() {
+        in = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public void start() {
+        try {
+            showMenu();
+            decide(readOption());
+        } catch (IOException e) {
+
+        }
+    }
 
     public void showMenu() {
         for (Options option : Options.values()) {
@@ -36,16 +53,12 @@ public class AlternateDialog {
 
     public void askForFiles() {
         try {
-            BufferedReader pathsReader = new BufferedReader(new InputStreamReader(System.in));
-
             System.out.println(ASKING_INPUT);
-            String filename = pathsReader.readLine();
-            checker.validate(filename);
+            String filename = checker.validate(in.readLine());
             input = Path.of(filename);
 
             System.out.println(ASKING_OUTPUT);
-            filename = pathsReader.readLine();
-            checker.validate(filename);
+            filename = checker.validate(in.readLine());
             output = Path.of(filename);
 
         } catch (IllegalArgumentException e) {
@@ -59,71 +72,91 @@ public class AlternateDialog {
     public void askForFilesAndKey() {
         askForFiles();
         System.out.println(ASKING_FOR_KEY);
-        try {
-            BufferedReader pathsReader = new BufferedReader(new InputStreamReader(System.in));
-            key = Integer.parseInt(pathsReader.readLine());
-        } catch (IOException e) {
-            System.out.println("Key is incorrect " + e.getMessage());
-        }
+            key = readInt();
     }
 
     public void askForExample() {
         System.out.println(ASKING_FOR_EXAMPLE);
         try {
-            BufferedReader pathsReader = new BufferedReader(new InputStreamReader(System.in));
-            var path = checker.validate(pathsReader.readLine());
+
+            var path = checker.validate(in.readLine());
             example = Path.of(path);
         } catch (IllegalArgumentException | IOException e) {
             System.out.println("This file cannot be example or this is directory");
         }
     }
 
-    public int makeDecision() {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            return Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
-            System.out.println("Incorrect choice");
-            return 0;
-        }
-    }
+    public void decide(Options option) {
 
-    public void decide(int decision) {
-        switch (decision) {
-            case 1: {
+        switch (option) {
+            case CRYPT_MODE -> {
                 askForFilesAndKey();
                 var cryptor = new EnCryptor(key, input, output, true);
                 cryptor.process();
             }
-            break;
-            case 2: {
+
+            case ENCRYPTION -> {
                 askForFilesAndKey();
-                var enCryptor = new EnCryptor(key, input, output, false);
-                enCryptor.process();
+                var deCryptor = new EnCryptor(key, input, output, false);
+                deCryptor.process();
             }
-            break;
-            case 22: {
+
+            case BRUTEFORCE -> {
                 askForFiles();
-                var bruteForce = new BruteForceEncryptor(input, output);
+                var bruteForce = new BruteForceDecryptor(input, output);
                 bruteForce.process();
             }
-            break;
-            case 23: {
+
+            case STATISTICENCRYPTION -> {
                 askForFiles();
                 askForExample();
-                var statisticEncryptor = new StatisticEncryptor(example, input, output);
+                var statisticEncryptor = new StatisticDecryptor(example, input, output);
                 statisticEncryptor.process();
             }
-            break;
-            case 0:
-                return;
-            default:
-                System.out.println("Incorrect command");
+
+            case EXIT -> processExit();
         }
     }
 
-    public void start() {
-        showMenu();
-        decide(makeDecision());
+    private int readInt() {
+        try {
+            String input = in.readLine();
+            return Integer.parseInt(input);
+        } catch (NumberFormatException | IOException e) {
+            throw new InvalidUserInputException ("Input is incorrect", e);
+        }
+    }
+
+    private String readString() {
+        try {
+            String input = in.readLine();
+            return input;
+        } catch (IOException e) {
+            throw new InvalidUserInputException("String is incorrect", e);
+        }
+    }
+
+    private Options readOption() throws IOException {
+        boolean isNeedRepeat;
+        do {
+            isNeedRepeat = false;
+            try {
+                int option = readInt();
+                return Options.getOptionByNum(option);
+            } catch (IllegalArgumentException | InvalidUserInputException e) {
+                System.out.println("Wrong operation chosen.");
+                System.out.println("Reason:" + e.getMessage());
+                System.out.println("Enter \"again\" for repeat, or any key for exit");
+                String input = readString();
+                if (AGAIN_MESSAGE.equalsIgnoreCase(input)) {
+                    isNeedRepeat = true;
+                }
+            }
+        } while(isNeedRepeat);
+        return Options.EXIT;
+    }
+
+    private void processExit() {
+        System.out.println("Bye!");
     }
 }

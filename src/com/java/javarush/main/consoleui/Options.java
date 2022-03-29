@@ -18,6 +18,17 @@ public enum Options {
         return description;
     }
 
+    public static Options getOptionByNum (int number) {
+        for (Options option : Options.values()) {
+            if (option.getNum() == number) {
+                return option;
+            }
+        }
+        throw new IllegalArgumentException ("Incorrect option");
+    }
+
+
+
     Options(int num, String text) {
         this.num = num;
         description = text;

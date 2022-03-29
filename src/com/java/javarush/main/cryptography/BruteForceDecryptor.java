@@ -3,10 +3,10 @@ package com.java.javarush.main.cryptography;
 import java.io.*;
 import java.nio.file.Path;
 
-public class BruteForceEncryptor extends EnCryptor {
+public class BruteForceDecryptor extends EnCryptor {
 
 
-    public BruteForceEncryptor(Path input, Path output) {
+    public BruteForceDecryptor(Path input, Path output) {
         this.input = input;
         this.output = output;
         breaking();
@@ -23,7 +23,7 @@ public class BruteForceEncryptor extends EnCryptor {
                 StringBuilder sb = new StringBuilder();
                 for (char c : charInput) {
                     key = i;
-                    sb.append(enCrypt(c));
+                    sb.append(DeCrypt(c));
 
                 }
                 System.out.println(key + " : " + sb);
