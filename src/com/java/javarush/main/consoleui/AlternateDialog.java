@@ -26,8 +26,6 @@ public class AlternateDialog {
                NOTICE: For StatisticEncrypting you will need example text from author of crypted text
                Enter the path to example file
             """;
-    private static final String ERROR = "Incorrect command. Rerun CryptoScan and try again";
-    private static final String EXIT = "Type \"Exit\" to exit program";
 
     private final BufferedReader in;
 
@@ -89,30 +87,10 @@ public class AlternateDialog {
     public void decide(Options option) {
 
         switch (option) {
-            case CRYPT_MODE -> {
-                askForFilesAndKey();
-                var cryptor = new EnCryptor(key, input, output, true);
-                cryptor.process();
-            }
-
-            case ENCRYPTION -> {
-                askForFilesAndKey();
-                var deCryptor = new EnCryptor(key, input, output, false);
-                deCryptor.process();
-            }
-
-            case BRUTEFORCE -> {
-                askForFiles();
-                var bruteForce = new BruteForceDecryptor(input, output);
-                bruteForce.process();
-            }
-
-            case STATISTICENCRYPTION -> {
-                askForFiles();
-                askForExample();
-                var statisticEncryptor = new StatisticDecryptor(example, input, output);
-                statisticEncryptor.process();
-            }
+            case CRYPT_MODE -> encriptionProcess();
+            case ENCRYPTION -> decryptProcess();
+            case BRUTEFORCE -> bruteForceProcess();
+            case STATISTICENCRYPTION -> statisticProcess();
 
             case EXIT -> processExit();
         }
@@ -154,6 +132,29 @@ public class AlternateDialog {
             }
         } while(isNeedRepeat);
         return Options.EXIT;
+    }
+    private void encriptionProcess() {
+        askForFilesAndKey();
+        var cryptor = new EnCryptor(key, input, output, true);
+        cryptor.process();
+    }
+    private void decryptProcess() {
+        askForFilesAndKey();
+        var deCryptor = new EnCryptor(key, input, output, false);
+        deCryptor.process();
+    }
+
+    private void bruteForceProcess() {
+        askForFiles();
+        var bruteForce = new BruteForceDecryptor(input, output);
+        bruteForce.process();
+    }
+
+    private void statisticProcess() {
+        askForFiles();
+        askForExample();
+        var statisticEncryptor = new StatisticDecryptor(example, input, output);
+        statisticEncryptor.process();
     }
 
     private void processExit() {
