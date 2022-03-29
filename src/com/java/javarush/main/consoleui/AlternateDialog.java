@@ -13,6 +13,7 @@ import java.nio.file.Path;
 
 public class AlternateDialog {
     public static final String AGAIN_MESSAGE = "again";
+    public static final String OPTIONS_PATTERN = "%d - %s";
     Path input;
     Path output;
     Path example;
@@ -40,7 +41,7 @@ public class AlternateDialog {
 
     public void showMenu() {
         for (Options option : Options.values()) {
-            System.out.printf("%d - %s", option.getNum(), option.getDescription());
+            System.out.printf(OPTIONS_PATTERN, option.getNum(), option.getDescription());
             System.out.println();
         }
     }
@@ -49,21 +50,29 @@ public class AlternateDialog {
 
 
     private void askForFiles() {
-        try {
-            System.out.println(ASKING_INPUT);
-            String filename = checker.validate(in.readLine());
-            input = Path.of(filename);
+        boolean isNeedRepeat;
+        do {
+            isNeedRepeat = false;
+            try {
+                System.out.println(ASKING_INPUT);
+                input = Path.of(checker.validate(in.readLine()));
 
-            System.out.println(ASKING_OUTPUT);
-            filename = checker.validate(in.readLine());
-            output = Path.of(filename);
+                System.out.println(ASKING_OUTPUT);
+                output = Path.of(checker.validate(in.readLine()));
 
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-
-        } catch (IOException e) {
-            System.out.println("Filepath is incorrect" + e.getMessage());
-        }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Type \"again\" if you need to repeat input");
+                if (AGAIN_MESSAGE.equalsIgnoreCase(readString())) {
+                    isNeedRepeat = true;
+                }
+            } catch (IOException e) {
+                System.out.println("Filepath is incorrect" + e.getMessage());
+                if (AGAIN_MESSAGE.equalsIgnoreCase(readString())) {
+                    isNeedRepeat = true;
+                }
+            }
+        } while(isNeedRepeat);
     }
 
     private void askForFilesAndKey() {
