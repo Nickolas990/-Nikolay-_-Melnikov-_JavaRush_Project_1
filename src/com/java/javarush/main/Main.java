@@ -1,10 +1,6 @@
 package com.java.javarush.main;
 
-import com.java.javarush.main.consoleui.Dialog;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.java.javarush.main.consoleui.AlternateDialog;
 
 public class Main {
     private static final String GREETINGS = "This is application for crypting and encrypting text. Press \"Enter\" to start or\n";
@@ -12,19 +8,11 @@ public class Main {
 
 
     public static void main(String[] args) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println(GREETINGS + EXIT);
-            String enterOrExit = reader.readLine();
-
-            while (!"exit".equalsIgnoreCase(enterOrExit)) {
-                Dialog.start();
-                System.out.println();
-                System.out.println(GREETINGS + EXIT);
-                enterOrExit = reader.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Incorrect command");
+        boolean isNeedReturn = true;
+        while (isNeedReturn) {
+            AlternateDialog dialog = new AlternateDialog();
+            dialog.start();
+            isNeedReturn = false;
         }
     }
 }

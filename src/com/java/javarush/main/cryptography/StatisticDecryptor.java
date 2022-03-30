@@ -5,16 +5,19 @@ import java.nio.*;
 import java.nio.file.Path;
 import java.util.*;
 
-public class StatisticEncryptor extends EnCryptor {
-    public static final int CAPACITY = 2048;
+public class StatisticDecryptor extends EnCryptor {
+
     Map<Character, Double> stats;
     Map<Character, Double> cryptedStats;
+    private static final int CAPACITY = 2048;
 
-    public StatisticEncryptor(Path example, Path crypted, Path encrypted) {
+
+    public StatisticDecryptor(Path example, Path crypted, Path encrypted) {
         input = crypted;
         output = encrypted;
         this.stats = creatingMapWithStats(example);
         this.cryptedStats = creatingMapWithStats(crypted);
+        key = lettersForEncryption.normalizeKey(breaking());
     }
 
 
@@ -25,7 +28,7 @@ public class StatisticEncryptor extends EnCryptor {
         for (Map.Entry<Character, Double> entry : target.entrySet()) {
             if (entry.getValue() > max) {
                 oftenLetter = entry.getKey();
-                max =(int) Math.round(entry.getValue());
+                max = (int) Math.round(entry.getValue());
             }
         }
         for (int i = 0; i < alphabet.length; i++) {
